@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head> <!--Etiqueta informativa -->
+        <meta charset="UTF-8">
+        <title>Encriptador</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <div class="logo-alura">
+                <p class="logo"> a </p>
+            </div>
+        </header>
+
+        <main>
+            
+            <section class="introducir-texto">
+                <textarea id="mensaje" placeholder="Ingrese texto aqui" class="introduce-texto"></textarea>
+                <p class="aviso">Solo letras minúsculas y sin acentos</p>
+                <ul class="botones">
+                    <li><input id ="boton-encriptar" type="submit" value="Encriptar" class="boton-encriptar"></li>
+                    <li><input id="boton-desencriptar" type="submit" value="Desencriptar" class="boton-desencriptar"></li>
+                </ul>
+            </section>
+            <section>
+                <textarea id="mensaje-encriptado" class="texto-encriptado" required> </textarea>
+                <img id="imagen-encriptar" src="images/1.png" class="imagen-desencriptar">
+                <input id="boton-copiar" type="submit" value="Copiar" class="boton-copiar">
+            </section>
+        </main>
+        <footer class="datos-autor">
+            <p class="copyright"> Nombre: Juan Pablo Cuartas Gallego</p>
+            <p class="copyright"> Correo: jcuartasg@unal.edu.co</p>
+            <p class="copyright"> Año: 2023</p>
+        </footer>
+    </body>
+
+    <script>
+        document.getElementById('boton-copiar').style.display="none";
+        function myFunction() {
+            var x = document.getElementById('boton-copiar');
+            if (x.style.display === 'block') {
+                x.style.display = 'none';
+            } else {
+                x.style.display = 'block';
+            }
+        }
+
+        function encriptar(){
+            let mensaje = document.getElementById("mensaje").value;
+
+            let textoCifrado = mensaje
+                .replace(/e/gi, "enter")
+                .replace(/i/gi, "imes")
+                .replace(/a/gi, "ai")
+                .replace(/o/gi, "ober")
+                .replace(/u/gi, "ufat");
+            
+            if (document.getElementById("mensaje").value.length != 0){
+                document.getElementById("imagen-encriptar").style.display = "none";
+
+                myFunction();
+                document.getElementById("mensaje-encriptado").value = textoCifrado;
+                document.getElementById("mensaje").value = "";
+                
+            }
+            else{
+                alert("debes ingresar texto");
+            }
+        }
+        
+        document.getElementById("boton-encriptar").onclick = encriptar;
+
+        function desencriptar(){
+            let mensajeEncriptado = document.getElementById("mensaje-encriptado").value;
+
+            let textoCifrado = mensajeEncriptado
+                .replace(/enter/gi, "e")
+                .replace(/imes/gi, "i")
+                .replace(/ai/gi, "a")
+                .replace(/ober/gi, "o")
+                .replace(/ufat/gi, "u");
+            
+            if (document.getElementById("mensaje-encriptado").value.length != 0){
+                myFunction();
+                document.getElementById("mensaje").value = textoCifrado;
+                document.getElementById("mensaje-encriptado").value = "";
+                
+            }
+            else{
+                alert("debes ingresar texto");
+            }
+        }
+        
+        document.getElementById("boton-desencriptar").onclick = desencriptar;
+
+        function copy() {
+            let copyText = document.querySelector("#mensaje-encriptado");
+            copyText.select();
+            document.execCommand("copy");
+            }
+
+        document.querySelector("#boton-encriptar").addEventListener("click", copy);
+      
+    </script>
+
+
+</html>
